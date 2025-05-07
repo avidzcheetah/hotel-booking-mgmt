@@ -1,3 +1,6 @@
+<?php
+	define("APPURL","http://localhost/hotel-booking-mgmt/");
+?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -10,17 +13,17 @@
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
  
-    <link rel="stylesheet" href="css/animate.css">
+    <link rel="stylesheet" href="<?php echo APPURL; ?>/css/animate.css">
     
-    <link rel="stylesheet" href="css/owl.carousel.min.css">
-    <link rel="stylesheet" href="css/owl.theme.default.min.css">
-    <link rel="stylesheet" href="css/magnific-popup.css">
+    <link rel="stylesheet" href="<?php echo APPURL; ?>/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="<?php echo APPURL; ?>/css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="<?php echo APPURL; ?>/css/magnific-popup.css">
 
-    <link rel="stylesheet" href="css/bootstrap-datepicker.css">
-    <link rel="stylesheet" href="css/jquery.timepicker.css">
+    <link rel="stylesheet" href="<?php echo APPURL; ?>/css/bootstrap-datepicker.css">
+    <link rel="stylesheet" href="<?php echo APPURL; ?>/css/jquery.timepicker.css">
 
-    <link rel="stylesheet" href="css/flaticon.css">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="<?php echo APPURL; ?>/css/flaticon.css">
+    <link rel="stylesheet" href="<?php echo APPURL; ?>/css/style.css">
   </head>
   <body>
 		<div class="wrap">
@@ -56,7 +59,7 @@
 	        	<li class="nav-item"><a href="rooms.html" class="nav-link">Apartment Room</a></li>
 	          <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
 	          <li class="nav-item"><a href="login.html" class="nav-link">Login</a></li>
-	          <li class="nav-item"><a href="register.html" class="nav-link">Register</a></li>
+	          <li class="nav-item"><a href="register.php" class="nav-link">Register</a></li>
 	        </ul>
 	      </div>
 	    </div>
