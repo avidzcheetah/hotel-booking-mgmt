@@ -2,6 +2,10 @@
 <?php require "../config/config.php"; ?>
 <?php
 
+  if(isset($_SESSION['username'])){
+    echo "<script>window.location.href='".APPURL."'</script>";
+  }
+
   if(isset($_POST['submit'])){
     if(empty($_POST['email']) OR empty($_POST['password'])){
       echo "<script>alert('One or more inputs are empty')</script>";
@@ -16,7 +20,12 @@
 
       if($login->rowCount() > 0){
         if(password_verify($password, $fetch['mypassword'])){
-          echo "<script>alert('LOGGED IN')</script>";
+          // echo "<script>alert('LOGGED IN')</script>";
+          $_SESSION['username'] = $fetch['username'];
+          $_SESSION['id'] = $fetch['id'];
+
+          header("location: ".APPURL."");
+
         } else {
           echo "<script>alert('Email or password is incorrect')</script>";
         }

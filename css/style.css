@@ -323,7 +323,7 @@ h6, .h6 {
 
   .hero-wrap {
     position: relative;
-    overflow: hidden;
+    overflow: visible;
   }
   
   .background-video {
@@ -342,7 +342,7 @@ h6, .h6 {
   }
   
   .overlay {
-    position: absolute;
+    position: relative;
     top: 0;
     left: 0;
     width: 100%;
@@ -2571,7 +2571,7 @@ input[type="button"].btn-block {
   position: absolute;
   top: 100%;
   left: 0;
-  z-index: 1000;
+  z-index: 2050;
   display: none;
   float: left;
   min-width: 10rem;
@@ -2709,12 +2709,13 @@ input[type="button"].btn-block {
 
 .dropdown-menu[x-placement^="top"], .dropdown-menu[x-placement^="right"], .dropdown-menu[x-placement^="bottom"], .dropdown-menu[x-placement^="left"] {
   right: auto;
-  bottom: auto; }
+  bottom: auto;
+  z-index: 1050; }
 
 .dropdown-divider {
   height: 0;
   margin: 0.5rem 0;
-  overflow: hidden;
+  overflow: visible;
   border-top: 1px solid #e9ecef; }
 
 .dropdown-item {
@@ -8033,7 +8034,7 @@ body {
   font-weight: 400;
   color: gray; }
   body.menu-show {
-    overflow: hidden;
+    overflow: visible;
     position: fixed;
     height: 100%;
     width: 100%; }
