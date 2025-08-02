@@ -1,6 +1,6 @@
 <?php
 	session_start();
-	define("APPURL","http://localhost/hotel-booking-mgmt/");
+	define("APPURL","http://localhost/hotel-booking-mgmt");
 ?>
 <!DOCTYPE html>
 <html lang="en">
