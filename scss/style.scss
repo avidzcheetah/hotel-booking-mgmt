@@ -285,11 +285,13 @@ h1, h2, h3, h4, h5,
 		content: '';
 		opacity: .1;
 		background: $black;
+		pointer-events: none;
 	}
 	&.hero-wrap-2{
 		height: 400px;
 		.overlay{
 			opacity: .2;
+			pointer-events: none;
 		}
 		.slider-text{
 			height: 400px;
@@ -863,6 +865,7 @@ textarea.form-control {
 		content: '';
 		opacity: .4;
 		background: $primary;
+		pointer-events: none;
 	}
 }
 
