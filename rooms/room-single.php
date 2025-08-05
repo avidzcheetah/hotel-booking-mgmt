@@ -2,6 +2,9 @@
 <?php require "../config/config.php"; ?>
 <?php
 	if(isset($_GET['id'])){
+
+    $id = $_GET['id'];
+
 		$room = $conn->query("SELECT * FROM rooms WHERE status = 1 AND id = {$_GET['id']}");
 		$room->execute();
 		$room = $room->fetch(PDO::FETCH_OBJ);
@@ -9,6 +12,51 @@
 		$utilities = $conn->query("SELECT * FROM utilities WHERE room_id = {$_GET['id']}");
 		$utilities->execute();
 		$allUtilities = $utilities->fetchAll(PDO::FETCH_OBJ);
+
+    if(isset($_POST['submit'])){
+      if(empty($_POST['email']) OR empty($_POST['phone_number']) OR empty($_POST['full_name']) OR empty($_POST['check_in']) OR empty($_POST['check_out'])){
+        echo "<script>alert('One or more inputs are empty')</script>";
+      } else {
+        $check_in = $_POST['check_in'];
+        $check_out = $_POST['check_out'];
+        $email = $_POST['email'];
+        $full_name = $_POST['full_name'];
+        $phone_number = $_POST['phone_number'];
+        $hotel_name = $room->hotel_name;
+        $room_name = $room->name;
+        $user_id = $_SESSION['id'];
+
+
+        if (date("Y/m/d") > $check_in OR date("Y/m/d") > $check_out){
+          echo "<script>alert('Date cannot be in the past')</script>";
+
+        } elseif ($check_in > $check_out){
+          echo "<script>alert('Pick a check in date before check out date')</script>";
+
+        } elseif ($check_in == date("Y/m/d")){
+        echo "<script>alert('Check in date cannot be today')</script>";
+
+        } else {
+
+          $booking = $conn->prepare("INSERT INTO bookings 
+          (check_in, check_out, email, phone_number, full_name, hotel_name, room_name, user_id)
+          VALUES (:check_in, :check_out, :email, :phone_number, :full_name, :hotel_name, :room_name, :user_id)");
+          
+          $booking->execute([
+            ":check_in" => $check_in,
+            ":check_out" => $check_out,
+            ":email" => $email,
+            ":phone_number" => $phone_number,
+            ":full_name" => $full_name,
+            ":hotel_name" => $hotel_name,
+            ":room_name" => $room_name,
+            ":user_id" => $user_id,
+          ]);
+
+          echo "<script>alert('Booking Successful')</script>";
+        }
+      }
+    }
 	}
 ?>
 
@@ -23,7 +71,7 @@
   .form-container {
     position: absolute;
     top: 20%;
-    right: 5%;
+    right: 15%;
     transform: translateY(-50%);
     z-index: 2;
     background: rgba(255,255,255,0.95);
@@ -56,24 +104,24 @@
     </div>
 
     <div class="form-container ftco-animate">
-      <form action="#" class="appointment-form">
+      <form action="room-single.php?id=<?php echo $id; ?>" method="POST" class="appointment-form">
         <h3 class="mb-3">Book this room</h3>
         <div class="row">
           <div class="col-md-12">
             <div class="form-group">
-              <input type="text" class="form-control" placeholder="Email">
+              <input type="email" name="email" class="form-control" placeholder="Email">
             </div>
           </div>
 
           <div class="col-md-12">
             <div class="form-group">
-              <input type="text" class="form-control" placeholder="Full Name">
+              <input type="text" name="full_name" class="form-control" placeholder="Full Name">
             </div>
           </div>
 
           <div class="col-md-12">
             <div class="form-group">
-              <input type="text" class="form-control" placeholder="Phone Number">
+              <input type="text" name="phone_number" class="form-control" placeholder="Phone Number">
             </div>
           </div>
 
@@ -81,7 +129,7 @@
             <div class="form-group">
               <div class="input-wrap">
                 <div class="icon"><span class="ion-md-calendar"></span></div>
-                <input type="text" class="form-control appointment_date-check-in" placeholder="Check-In">
+                <input type="text" name="check_in" class="form-control appointment_date-check-in" placeholder="Check-In">
               </div>
             </div>
           </div>
@@ -89,13 +137,13 @@
           <div class="col-md-6">
             <div class="form-group">
               <div class="icon"><span class="ion-md-calendar"></span></div>
-              <input type="text" class="form-control appointment_date-check-out" placeholder="Check-Out">
+              <input type="text" name="check_out" class="form-control appointment_date-check-out" placeholder="Check-Out">
             </div>
           </div>
 
           <div class="col-md-12">
             <div class="form-group">
-              <input type="submit" value="Book and Pay Now" class="btn btn-primary py-3 px-4">
+              <input type="submit" name="submit" value="Book and Pay Now" class="btn btn-primary py-3 px-4">
             </div>
           </div>
         </div>
